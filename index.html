@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>reign — dev</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="page">
+  <nav>
+    <div class="logo">reign<span>.</span></div>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">☀</button>
+    </div>
+  </nav>
+
+  <div class="main">
+    <div class="left">
+      <div class="intro">
+        <h1>building things<br>for the <em>web</em>,<br>learning as i go.</h1>
+        <p>new developer exploring web technologies and python. focused on creating tools that solve real problems and shipping projects to learn.</p>
+      </div>
+
+      <div class="contrib-box">
+        <div class="section-label">contributions — 2025</div>
+        <iframe id="contribIframe" src="https://commit-palette.vercel.app?username=unitreign&colors=33312c,2d2848,4a3d72,6b56a0,9b6fd4,e8e4dc&months=6" style="width:100%; height:105px; border:0; margin-top:8px; display:block;"></iframe>
+      </div>
+
+      <div class="bottom-cards">
+        <div class="info-card">
+          <div class="section-label">stack</div>
+          <ul>
+            <li>javascript</li>
+            <li>python</li>
+            <li>react, node.js</li>
+            <li>html/css</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <div class="section-label">skills</div>
+          <ul>
+            <li>responsive design</li>
+            <li>api integration</li>
+            <li>git workflows</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="section-label" style="margin-bottom: 6px; flex-shrink: 0;">projects</div>
+      <div class="projects-wrap">
+
+        <div class="project">
+          <div>
+            <h3>loomi</h3>
+            <p>your retro lofi companion for chill beats and relaxing vibes</p>
+            <div class="tags"><span class="tag">vanilla js</span><span class="tag">canvas</span><span class="tag">web audio api</span></div>
+          </div>
+          <div class="meta">
+            <a href="https://loomi-pied.vercel.app/" class="project-link" target="_blank" title="view project">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+            <!--<a href="https://github.com/unitreign/loomi" class="project-link" target="_blank" title="view on github">
+              <i class="fa-brands fa-github"></i>
+            </a>-->
+          </div>
+        </div>
+
+        <div class="project">
+          <div>
+            <h3>commit-palette</h3>
+            <p>customizable github contribution graph. built it because existing solutions didn't let me match my portfolio's theme colors</p>
+            <div class="tags"><span class="tag">react</span><span class="tag">github api</span><span class="tag">vercel</span></div>
+          </div>
+          <div class="meta">
+            <a href="https://commit-palette.vercel.app/" class="project-link" target="_blank" title="view project">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+            
+          </div>
+        </div>
+
+        <div class="project">
+          <div>
+            <h3>crosspoint-covergen</h3>
+            <p>simple python script for making cover images for Crosspoint firmware</p>
+            <div class="tags"><span class="tag">react</span><span class="tag">github api</span><span class="tag">vercel</span></div>
+          </div>
+          <div class="meta">
+            
+            <a href="https://github.com/unitreign/crosspoint-covergen" class="project-link" target="_blank" title="view on github">
+              <i class="fa-brands fa-github"></i>
+            </a>
+          </div>
+        </div>
+<!--
+        <div class="project" style="opacity: 0.5;">
+          <div>
+            <h3>project placeholder</h3>
+            <p>another project slot - add your work here</p>
+            <div class="tags"><span class="tag">tech</span><span class="tag">stack</span></div>
+          </div>
+          <div class="meta">
+            <span class="project-link" style="opacity: 0.3;">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </span>
+          </div>
+        </div>
+-->
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span>© 2026 reign</span>
+    <div class="footer-links">
+      <a href="https://github.com/unitreign" target="_blank">github</a>
+      <a href="https://twitter.com/yourhandle" target="_blank">x</a>
+      <a href="https://yourblog.bearblog.dev" target="_blank">blog</a>
+    </div>
+    <span class="clock" id="clock"></span>
+  </footer>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
