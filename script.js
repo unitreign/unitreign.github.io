@@ -20,6 +20,13 @@ if (savedTheme === 'light') {
   iframe.src = 'https://commit-palette.vercel.app?username=unitreign&colors=d4cfc6,d4c9e8,b5a0d4,9478bc,7c4dba,1a1a1a&months=6';
 }
 
+// Auto-resize contribution iframe
+window.addEventListener('message', (e) => {
+  if (e.data && e.data.commitPaletteHeight) {
+    document.getElementById('contribIframe').style.height = e.data.commitPaletteHeight + 'px';
+  }
+});
+
 // Clock
 function tick() {
   document.getElementById('clock').textContent =
