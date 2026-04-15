@@ -38,76 +38,99 @@ document.querySelectorAll('.tab').forEach(tab => {
   });
 });
 
+// Reader
+let blogPosts = [];
+
+function openReader(index) {
+  const post = blogPosts[index];
+  if (!post) return;
+
+  document.getElementById('readerTitle').textContent = post.title || '';
+
+  const dateStr = post.pubDate || '';
+  if (dateStr) {
+    const d = new Date(dateStr);
+    const day   = String(d.getDate()).padStart(2, '0');
+    const month = d.toLocaleString('en-US', { month: 'short' }).toLowerCase();
+    const year  = d.getFullYear();
+    document.getElementById('readerMeta').textContent = `${day} ${month} ${year}`;
+  } else {
+    document.getElementById('readerMeta').textContent = '';
+  }
+
+  document.getElementById('readerContent').innerHTML = post.content || post.description || '';
+
+  const reader = document.getElementById('reader');
+  reader.classList.add('open');
+  reader.scrollTop = 0;
+}
+
+function closeReader() {
+  document.getElementById('reader').classList.remove('open');
+}
+
+document.getElementById('readerBack').addEventListener('click', closeReader);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeReader(); });
+
+// Blog RSS fetch
 async function loadBlogPosts() {
   const list = document.getElementById('blog-list');
   const feedUrl = 'https://reign.bearblog.dev/feed/';
   const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
 
   try {
-    const res = await fetch(apiUrl);
+    const res  = await fetch(apiUrl);
     const data = await res.json();
 
-    if (data.status !== 'ok') {
-      throw new Error('RSS2JSON failed');
-    }
+    if (data.status !== 'ok') throw new Error('RSS2JSON failed');
 
-    const items = data.items || [];
+    blogPosts = data.items || [];
     list.innerHTML = '';
 
-    if (items.length === 0) {
-      list.innerHTML = `
-        <div class="writing-row">
-          <span class="write-date">—</span>
-          <span class="write-title" style="opacity:0.4;">no posts yet.</span>
-        </div>`;
+    if (blogPosts.length === 0) {
+      list.innerHTML = '<div class="writing-row"><span class="write-date">—</span><span class="write-title" style="opacity:0.4;">no posts yet.</span></div>';
       return;
     }
 
-    items.forEach(item => {
-      const title = item.title || '';
-      const url   = item.link || '#';
+    blogPosts.forEach((item, index) => {
       const dateStr = item.pubDate || '';
-
       let formatted = '—';
       if (dateStr) {
-        const d = new Date(dateStr);
+        const d     = new Date(dateStr);
         const day   = String(d.getDate()).padStart(2, '0');
         const month = d.toLocaleString('en-US', { month: 'short' }).toLowerCase();
-        formatted = `${day} ${month}`;
+        formatted   = `${day} ${month}`;
       }
 
-      const row = document.createElement('div');
-      row.className = 'writing-row';
+      const row      = document.createElement('div');
+      row.className  = 'writing-row';
+      row.style.cursor = 'pointer';
+      row.addEventListener('click', () => openReader(index));
 
-      const dateSpan = document.createElement('span');
-      dateSpan.className = 'write-date';
+      const dateSpan       = document.createElement('span');
+      dateSpan.className   = 'write-date';
       dateSpan.textContent = formatted;
 
-      const titleLink = document.createElement('a');
-      titleLink.className = 'write-title';
-      titleLink.href = url;
-      titleLink.target = '_blank';
-      titleLink.textContent = title;
+      const titleSpan       = document.createElement('span');
+      titleSpan.className   = 'write-title';
+      titleSpan.textContent = item.title || '';
 
-      const icon = document.createElement('a');
-      icon.className = 'project-link';
-      icon.href = url;
-      icon.target = '_blank';
-      icon.title = 'read post';
-      icon.innerHTML = '<i class="fa-solid fa-arrow-up-right-from-square"></i>';
+      const icon      = document.createElement('a');
+      icon.className  = 'project-link';
+      icon.href       = item.link || '#';
+      icon.target     = '_blank';
+      icon.title      = 'open on blog';
+      icon.innerHTML  = '<i class="fa-solid fa-arrow-up-right-from-square"></i>';
+      icon.addEventListener('click', e => e.stopPropagation());
 
       row.appendChild(dateSpan);
-      row.appendChild(titleLink);
+      row.appendChild(titleSpan);
       row.appendChild(icon);
       list.appendChild(row);
     });
 
-  } catch (err) {
-    list.innerHTML = `
-      <div class="writing-row">
-        <span class="write-date">—</span>
-        <span class="write-title" style="opacity:0.4;">could not load posts.</span>
-      </div>`;
+  } catch {
+    list.innerHTML = '<div class="writing-row"><span class="write-date">—</span><span class="write-title" style="opacity:0.4;">could not load posts.</span></div>';
   }
 }
 
