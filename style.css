@@ -56,6 +56,7 @@ nav {
   align-items: center;
   border-bottom: 1px solid var(--border);
   transition: border-color var(--transition);
+  position: relative;
 }
 
 .logo { font-weight: 500; font-size: 14px; letter-spacing: -0.3px; }
@@ -325,29 +326,19 @@ nav {
 .writing-row:hover .write-title { color: var(--accent); }
 
 /* READER */
-.reader {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  background: var(--bg);
-  overflow-y: auto;
-  transition: background var(--transition);
-}
-.reader.open { display: block; }
+#readerBack, #readerTitleBar, #readerMeta { display: none; }
 
-.reader-header {
-  max-width: 680px;
-  margin: 0 auto;
-  padding: 20px 32px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--border);
-  transition: border-color var(--transition);
-}
+.reader-open .logo,
+.reader-open .nav-right { display: none; }
 
-.reader-back {
+.reader-open #readerBack,
+.reader-open #readerMeta { display: flex; }
+.reader-open #readerTitleBar { display: block; }
+
+.reader-open .main { display: none; }
+.reader-open .reader-content-area { display: block; }
+
+#readerBack {
   background: none;
   border: none;
   font-family: 'DM Mono', monospace;
@@ -356,20 +347,47 @@ nav {
   cursor: pointer;
   transition: color 0.2s;
   padding: 0;
+  height: 28px;
+  align-items: center;
 }
-.reader-back:hover { color: var(--accent); }
+#readerBack:hover { color: var(--accent); }
 
-.reader-meta {
-  font-family: 'DM Mono', monospace;
+#readerMeta {
+  height: 28px;
+  align-items: center;
   font-size: 10px;
   color: var(--muted);
   letter-spacing: 0.5px;
 }
 
+#readerTitleBar {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 50%;
+  pointer-events: none;
+}
+
+.reader-content-area {
+  display: none;
+  overflow-y: auto;
+  min-height: 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scroll-thumb) transparent;
+}
+.reader-content-area::-webkit-scrollbar { width: 3px; }
+.reader-content-area::-webkit-scrollbar-track { background: transparent; }
+.reader-content-area::-webkit-scrollbar-thumb { background: var(--scroll-thumb); border-radius: 4px; }
+.reader-content-area::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
 .reader-body {
-  max-width: 680px;
-  margin: 0 auto;
-  padding: 40px 32px 80px;
+  padding: 40px 0 40px;
   font-family: 'Newsreader', serif;
 }
 
@@ -421,6 +439,34 @@ nav {
 .reader-body li { margin-bottom: 6px; }
 
 .reader-body strong { color: var(--text); font-weight: 500; opacity: 1; }
+
+.reader-body .code-block {
+  position: relative;
+  margin: 20px 0;
+}
+
+.reader-body .code-block pre {
+  margin: 0;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.5px;
+  padding: 2px 6px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+  line-height: 1.6;
+}
+.copy-btn:hover { color: var(--text); border-color: var(--muted); }
+.copy-btn.copied { color: var(--accent); border-color: var(--accent); }
 
 .reader-body pre {
   font-family: 'DM Mono', monospace;

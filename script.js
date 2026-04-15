@@ -41,11 +41,34 @@ document.querySelectorAll('.tab').forEach(tab => {
 // Reader
 let blogPosts = [];
 
+function addCopyButtons() {
+  document.querySelectorAll('#readerContent pre').forEach(pre => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'code-block';
+    pre.parentNode.insertBefore(wrapper, pre);
+    wrapper.appendChild(pre);
+
+    const btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.textContent = 'copy';
+    btn.addEventListener('click', () => {
+      navigator.clipboard.writeText(pre.innerText).then(() => {
+        btn.textContent = 'copied';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('copied'); }, 1800);
+      });
+    });
+    wrapper.appendChild(btn);
+  });
+}
+
 function openReader(index) {
   const post = blogPosts[index];
   if (!post) return;
 
-  document.getElementById('readerTitle').textContent = post.title || '';
+  const title = post.title || '';
+  document.getElementById('readerTitle').textContent = title;
+  document.getElementById('readerTitleBar').textContent = title;
 
   const dateStr = post.pubDate || '';
   if (dateStr) {
@@ -59,14 +82,14 @@ function openReader(index) {
   }
 
   document.getElementById('readerContent').innerHTML = post.content || post.description || '';
+  addCopyButtons();
 
-  const reader = document.getElementById('reader');
-  reader.classList.add('open');
-  reader.scrollTop = 0;
+  document.querySelector('.page').classList.add('reader-open');
+  document.getElementById('readerArea').scrollTop = 0;
 }
 
 function closeReader() {
-  document.getElementById('reader').classList.remove('open');
+  document.querySelector('.page').classList.remove('reader-open');
 }
 
 document.getElementById('readerBack').addEventListener('click', closeReader);
@@ -121,6 +144,7 @@ async function loadBlogPosts() {
       icon.target     = '_blank';
       icon.title      = 'open on blog';
       icon.innerHTML  = '<i class="fa-solid fa-arrow-up-right-from-square"></i>';
+      icon.style.display = 'none';
       icon.addEventListener('click', e => e.stopPropagation());
 
       row.appendChild(dateSpan);

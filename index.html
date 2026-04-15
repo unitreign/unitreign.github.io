@@ -16,6 +16,9 @@
     <div class="nav-right">
       <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">&#9681;</button>
     </div>
+    <button id="readerBack">← back</button>
+    <span id="readerTitleBar"></span>
+    <span id="readerMeta"></span>
   </nav>
 
   <div class="main">
@@ -156,28 +159,22 @@
     </div>
   </div>
 
+  <div class="reader-content-area" id="readerArea">
+    <article class="reader-body">
+      <h1 id="readerTitle"></h1>
+      <div id="readerContent"></div>
+    </article>
+  </div>
+
   <footer>
     <span>© 2026 reign</span>
     <div class="footer-links">
       <a href="https://github.com/unitreign" target="_blank">github</a>
-      <a href="https://twitter.com/unitreign" target="_blank">x</a>
-      <a href="https://reign.bearblog.dev" target="_blank">blog</a>
     </div>
     <span class="clock" id="clock"></span>
   </footer>
 </div>
 
-<!-- READER OVERLAY -->
-<div id="reader" class="reader">
-  <div class="reader-header">
-    <button class="reader-back" id="readerBack">← back</button>
-    <span class="reader-meta" id="readerMeta"></span>
-  </div>
-  <article class="reader-body">
-    <h1 id="readerTitle"></h1>
-    <div id="readerContent"></div>
-  </article>
-</div>
 
 <script src="script.js"></script>
 
