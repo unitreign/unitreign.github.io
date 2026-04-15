@@ -42,7 +42,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 async function loadBlogPosts() {
   const list = document.getElementById('blog-list');
   try {
-    const res = await fetch('https://reign.bearblog.dev/feed/');
+    const res = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent('https://reign.bearblog.dev/feed/'));
     const text = await res.text();
     const xml = new DOMParser().parseFromString(text, 'application/xml');
     const entries = Array.from(xml.querySelectorAll('entry'));
