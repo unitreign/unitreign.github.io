@@ -36,6 +36,7 @@
           <ul>
             <li>javascript</li>
             <li>python</li>
+            <li>kotlin (android)</li>
             <li>react, node.js</li>
             <li>html/css</li>
           </ul>
@@ -43,114 +44,114 @@
         <div class="info-card">
           <div class="section-label">skills</div>
           <ul>
+            <li>android development</li>
+            <li>browser extensions</li>
             <li>responsive design</li>
             <li>api integration</li>
-            <li>git workflows</li>
           </ul>
         </div>
       </div>
     </div>
 
     <div class="right">
-      <div class="section-label" style="margin-bottom: 6px; flex-shrink: 0;">projects</div>
-      <div class="projects-wrap">
+      <div class="tabs-bar">
+        <button class="tab active" data-tab="projects">projects</button>
+        <button class="tab" data-tab="blog">blog</button>
+      </div>
 
-        <div class="project">
-        <div>
-          <h3>loomi</h3>
-          <p>native android lofi companion for chill beats and ambient vibes.</p>
-          <div class="tags">
-            <span class="tag">kotlin</span>
-            <span class="tag">android</span>
-            <span class="tag">native</span>
-            <span class="tag">open source</span>
+      <div class="tab-panel active" id="tab-projects">
+        <div class="projects-wrap">
+
+          <div class="project">
+            <span class="proj-num">01</span>
+            <div class="proj-info">
+              <h3>loomi<span class="proj-status oss">oss</span></h3>
+              <p>native android lofi companion for chill beats and ambient vibes.</p>
+              <div class="tags">
+                <span class="tag">kotlin</span>
+                <span class="tag">android</span>
+                <span class="tag">native</span>
+              </div>
+            </div>
+            <div class="meta">
+              <a href="https://github.com/unitreign/loomi-android/releases/" class="project-link" target="_blank" title="download apk"><i class="fa-solid fa-download"></i></a>
+              <a href="https://github.com/unitreign/loomi-android" class="project-link" target="_blank" title="view on github"><i class="fa-brands fa-github"></i></a>
+            </div>
           </div>
-        </div>
-        <div class="meta">
-          <a href="https://github.com/unitreign/loomi-android/releases/" class="project-link" target="_blank" title="download apk">
-            <i class="fa-solid fa-download"></i>
-          </a>
-          <a href="https://github.com/unitreign/loomi-android" class="project-link" target="_blank" title="view on github">
-            <i class="fa-brands fa-github"></i>
-          </a>
+
+          <div class="project">
+            <span class="proj-num">02</span>
+            <div class="proj-info">
+              <h3>reign tools<span class="proj-status live">live</span></h3>
+              <p>fast browser tools for text and images. no ai, just math and javascript.</p>
+              <div class="tags">
+                <span class="tag">vanilla js</span>
+                <span class="tag">canvas api</span>
+                <span class="tag">client-side</span>
+              </div>
+            </div>
+            <div class="meta">
+              <a href="https://reign-tools.vercel.app/" class="project-link" target="_blank" title="view project"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </div>
+          </div>
+
+          <div class="project">
+            <span class="proj-num">03</span>
+            <div class="proj-info">
+              <h3>nimbus<span class="proj-status wip">wip</span></h3>
+              <p>turn browser chaos into a visual workspace. capture, connect, and organize on a zoomable canvas.</p>
+              <div class="tags">
+                <span class="tag">chrome extension</span>
+                <span class="tag">local-first</span>
+                <span class="tag">canvas</span>
+                <span class="tag">keyboard-first</span>
+              </div>
+            </div>
+            <div class="meta"></div>
+          </div>
+
+          <div class="project">
+            <span class="proj-num">04</span>
+            <div class="proj-info">
+              <h3>commit-palette<span class="proj-status live">live</span></h3>
+              <p>customizable github contribution graph.</p>
+              <div class="tags">
+                <span class="tag">react</span>
+                <span class="tag">github api</span>
+                <span class="tag">vercel</span>
+              </div>
+            </div>
+            <div class="meta">
+              <a href="https://commit-palette.vercel.app/" class="project-link" target="_blank" title="view project"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </div>
+          </div>
+
+          <div class="project">
+            <span class="proj-num">05</span>
+            <div class="proj-info">
+              <h3>crosspoint-covergen<span class="proj-status oss">oss</span></h3>
+              <p>simple python script for making cover images for Crosspoint firmware.</p>
+              <div class="tags">
+                <span class="tag">python</span>
+                <span class="tag">cli</span>
+                <span class="tag">image gen</span>
+              </div>
+            </div>
+            <div class="meta">
+              <a href="https://github.com/unitreign/crosspoint-covergen" class="project-link" target="_blank" title="view on github"><i class="fa-brands fa-github"></i></a>
+            </div>
+          </div>
+
         </div>
       </div>
 
-        <div class="project">
-        <div>
-          <h3>reign tools</h3>
-          <p>fast browser tools for text and images. no ai, just math and javascript.</p>
-          <div class="tags">
-            <span class="tag">vanilla js</span>
-            <span class="tag">canvas api</span>
-            <span class="tag">client-side</span>
+      <div class="tab-panel" id="tab-blog">
+        <div class="writing-wrap" id="blog-list">
+          <div class="writing-row">
+            <span class="write-date">—</span>
+            <span class="write-title" style="opacity:0.4;">loading...</span>
           </div>
         </div>
-        <div class="meta">
-          <a href="https://reign-tools.vercel.app/" class="project-link" target="_blank" title="view project">
-            <i class="fa-solid fa-arrow-up-right-from-square"></i>
-          </a>
-        </div>
-      </div>
-
-      <div class="project">
-  <div>
-    <h3>nimbus</h3>
-    <p>turn browser chaos into a visual workspace. capture, connect, and organize on a zoomable canvas.</p>
-    <div class="tags">
-      <span class="tag">chrome extension</span>
-      <span class="tag">local-first</span>
-      <span class="tag">canvas</span>
-      <span class="tag">keyboard-first</span>
-      <span class="tag">wip</span>
-    </div>
-  </div>
-  <div class="meta">
-    <!-- no links yet -->
-  </div>
-</div>
-
-        <div class="project">
-          <div>
-            <h3>commit-palette</h3>
-            <p>customizable github contribution graph. </p>
-            <div class="tags"><span class="tag">react</span><span class="tag">github api</span><span class="tag">vercel</span></div>
-          </div>
-          <div class="meta">
-            <a href="https://commit-palette.vercel.app/" class="project-link" target="_blank" title="view project">
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </a>
-            
-          </div>
-        </div>
-
-        <div class="project">
-          <div>
-            <h3>crosspoint-covergen</h3>
-            <p>simple python script for making cover images for Crosspoint firmware</p>
-            <div class="tags"><span class="tag">python</span><span class="tag">cli</span><span class="tag">image gen</span></div>
-          </div>
-          <div class="meta">
-            
-            <a href="https://github.com/unitreign/crosspoint-covergen" class="project-link" target="_blank" title="view on github">
-              <i class="fa-brands fa-github"></i>
-            </a>
-          </div>
-        </div>
-<!--
-        <div class="project" style="opacity: 0.5;">
-          <div>
-            <h3>project placeholder</h3>
-            <p>another project slot - add your work here</p>
-            <div class="tags"><span class="tag">tech</span><span class="tag">stack</span></div>
-          </div>
-          <div class="meta">
-            <span class="project-link" style="opacity: 0.3;">
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </span>
-          </div>
-        </div>
--->
       </div>
     </div>
   </div>
