@@ -41,60 +41,86 @@ document.querySelectorAll('.tab').forEach(tab => {
 // Blog RSS fetch
 async function loadBlogPosts() {
   const list = document.getElementById('blog-list');
-  try {
-    const res = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent('https://reign.bearblog.dev/feed/'));
-    const text = await res.text();
-    const xml = new DOMParser().parseFromString(text, 'application/xml');
-    const entries = Array.from(xml.querySelectorAll('entry'));
+  const feedUrl = 'https://reign.bearblog.dev/feed/';
+  
+  // Try multiple strategies
+  const strategies = [
+    // Try direct (BearBlog might support CORS)
+    () => fetch(feedUrl),
+    // Fallback to corsproxy.io
+    () => fetch(`https://corsproxy.io/?${encodeURIComponent(feedUrl)}`),
+    // Fallback to RSS2JSON
+    () => fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`).then(async res => {
+      const data = await res.json();
+      if (data.status !== 'ok') throw new Error('RSS2JSON failed');
+      // Convert to XML-like structure for compatibility
+      const xmlStr = `<?xml version="1.0"?><feed>${data.items.map(item => 
+        `<entry><title>${item.title}</title><id>${item.link}</id><updated>${item.pubDate}</updated></entry>`
+      ).join('')}</feed>`;
+      return new Response(xmlStr);
+    })
+  ];
 
-    list.innerHTML = '';
+  for (const strategy of strategies) {
+    try {
+      const res = await strategy();
+      const text = await res.text();
+      const xml = new DOMParser().parseFromString(text, 'application/xml');
+      const entries = Array.from(xml.querySelectorAll('entry'));
 
-    if (entries.length === 0) {
-      list.innerHTML = '<div class="writing-row"><span class="write-date">—</span><span class="write-title" style="opacity:0.4;">no posts yet.</span></div>';
-      return;
-    }
+      list.innerHTML = '';
 
-    entries.forEach(entry => {
-      const title = entry.querySelector('title')?.textContent?.trim() || '';
-      const url   = entry.querySelector('id')?.textContent?.trim()    || '#';
-      const dateStr = entry.querySelector('updated')?.textContent?.trim() || '';
-
-      let formatted = '—';
-      if (dateStr) {
-        const d = new Date(dateStr);
-        const day   = String(d.getDate()).padStart(2, '0');
-        const month = d.toLocaleString('en-US', { month: 'short' }).toLowerCase();
-        formatted = `${day} ${month}`;
+      if (entries.length === 0) {
+        list.innerHTML = '<div class="writing-row"><span class="write-date">—</span><span class="write-title" style="opacity:0.4;">no posts yet.</span></div>';
+        return;
       }
 
-      const row      = document.createElement('div');
-      row.className  = 'writing-row';
+      entries.forEach(entry => {
+        const title = entry.querySelector('title')?.textContent?.trim() || '';
+        const url   = entry.querySelector('id')?.textContent?.trim()    || '#';
+        const dateStr = entry.querySelector('updated')?.textContent?.trim() || '';
 
-      const dateSpan      = document.createElement('span');
-      dateSpan.className  = 'write-date';
-      dateSpan.textContent = formatted;
+        let formatted = '—';
+        if (dateStr) {
+          const d = new Date(dateStr);
+          const day   = String(d.getDate()).padStart(2, '0');
+          const month = d.toLocaleString('en-US', { month: 'short' }).toLowerCase();
+          formatted = `${day} ${month}`;
+        }
 
-      const titleLink      = document.createElement('a');
-      titleLink.className  = 'write-title';
-      titleLink.href       = url;
-      titleLink.target     = '_blank';
-      titleLink.textContent = title;
+        const row      = document.createElement('div');
+        row.className  = 'writing-row';
 
-      const icon      = document.createElement('a');
-      icon.className  = 'project-link';
-      icon.href       = url;
-      icon.target     = '_blank';
-      icon.title      = 'read post';
-      icon.innerHTML  = '<i class="fa-solid fa-arrow-up-right-from-square"></i>';
+        const dateSpan      = document.createElement('span');
+        dateSpan.className  = 'write-date';
+        dateSpan.textContent = formatted;
 
-      row.appendChild(dateSpan);
-      row.appendChild(titleLink);
-      row.appendChild(icon);
-      list.appendChild(row);
-    });
-  } catch {
-    list.innerHTML = '<div class="writing-row"><span class="write-date">—</span><span class="write-title" style="opacity:0.4;">could not load posts.</span></div>';
+        const titleLink      = document.createElement('a');
+        titleLink.className  = 'write-title';
+        titleLink.href       = url;
+        titleLink.target     = '_blank';
+        titleLink.textContent = title;
+
+        const icon      = document.createElement('a');
+        icon.className  = 'project-link';
+        icon.href       = url;
+        icon.target     = '_blank';
+        icon.title      = 'read post';
+        icon.innerHTML  = '<i class="fa-solid fa-arrow-up-right-from-square"></i>';
+
+        row.appendChild(dateSpan);
+        row.appendChild(titleLink);
+        row.appendChild(icon);
+        list.appendChild(row);
+      });
+      return; // Success, exit
+    } catch (err) {
+      continue; // Try next strategy
+    }
   }
+  
+  // All strategies failed
+  list.innerHTML = '<div class="writing-row"><span class="write-date">—</span><span class="write-title" style="opacity:0.4;">could not load posts.</span></div>';
 }
 
 loadBlogPosts();
