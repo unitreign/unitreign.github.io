@@ -81,6 +81,9 @@ nav {
 }
 .theme-toggle:hover { color: var(--text); border-color: var(--muted); }
 
+/* MOBILE TAB BAR (hidden on desktop) */
+.mobile-tabbar { display: none; }
+
 /* MAIN */
 .main {
   display: grid;
@@ -561,17 +564,98 @@ footer {
 
 @media (max-width: 768px) {
   body { overflow: auto; height: auto; }
-  .main { grid-template-columns: 1fr; align-items: start; }
-  .intro h1 { font-size: 28px; }
-  .page { height: auto; min-height: 100vh; }
+
+  .page {
+    height: auto;
+    min-height: 100vh;
+    padding: 0 20px;
+  }
+
+  /* Mobile tab bar */
+  .mobile-tabbar {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    padding-top: 16px;
+  }
+
+  .m-tab {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 0 0 8px 0;
+    margin-bottom: -1px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    color: var(--muted);
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .m-tab:hover { color: var(--text); }
+  .m-tab.active { color: var(--text); border-bottom-color: var(--accent); }
+
+  /* Main collapses — panels controlled by JS class on .main */
+  .main {
+    display: block;
+    padding: 0;
+    overflow: visible;
+  }
+
+  /* Left = about panel (visible by default) */
+  .main .left {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px 0 24px;
+    justify-content: flex-start;
+  }
+
+  /* Right panel hidden by default; shown for projects/blog */
+  .main .right {
+    display: none;
+    flex-direction: column;
+    max-height: none;
+    padding: 20px 0 24px;
+  }
+
+  .main.m-projects .left,
+  .main.m-blog .left { display: none; }
+
+  .main.m-projects .right,
+  .main.m-blog .right { display: flex; }
+
+  /* Hide the desktop projects/blog tab bar — mobile tabbar handles it */
+  .right .tabs-bar { display: none; }
+
+  /* Tab panels scroll with page */
   .tab-panel { overflow-y: visible; padding-right: 0; }
-  .bottom-cards { grid-template-columns: 1fr; }
+
+  .intro h1 { font-size: 26px; }
+
+  .project { padding: 12px 4px; }
+
+  .writing-row { padding: 10px 4px; }
+
+  .bottom-cards { grid-template-columns: 1fr; gap: 14px; }
+
+  #readerTitleBar {
+    max-width: 38%;
+    font-size: 12px;
+  }
+
   .footer-links {
     position: static;
     transform: none;
   }
+
   footer {
-    flex-direction: column;
-    gap: 12px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0 24px;
   }
 }

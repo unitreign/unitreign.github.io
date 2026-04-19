@@ -35,13 +35,34 @@ function tick() {
 tick();
 setInterval(tick, 1000);
 
-// Tabs
+// Desktop tabs (projects / blog)
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', () => {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
     tab.classList.add('active');
     document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+  });
+});
+
+// Mobile tabs (about / projects / blog)
+document.querySelectorAll('.m-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.m-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+
+    const mtab = tab.dataset.mtab;
+    const main = document.querySelector('.main');
+    main.classList.remove('m-projects', 'm-blog');
+
+    if (mtab === 'projects' || mtab === 'blog') {
+      main.classList.add('m-' + mtab);
+      // Sync which right-panel tab is active
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelector(`.tab[data-tab="${mtab}"]`).classList.add('active');
+      document.getElementById('tab-' + mtab).classList.add('active');
+    }
   });
 });
 
@@ -93,6 +114,7 @@ function openReader(index) {
 
   document.querySelector('.page').classList.add('reader-open');
   document.getElementById('readerArea').scrollTop = 0;
+  window.scrollTo(0, 0);
 }
 
 function closeReader() {
