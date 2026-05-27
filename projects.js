@@ -1,6 +1,6 @@
 const PROJECTS = [
   {
-    num: '01',
+    hidden: false,
     title: 'calliope',
     status: 'oss',
     description: 'desktop music sync manager for snowsky echo. handles flac encoding, art resizing, and genre playlists.',
@@ -11,28 +11,27 @@ const PROJECTS = [
     ]
   },
   {
-    num: '02',
+    hidden: false,
     title: 'loomi',
     status: 'oss',
     description: 'native android lofi companion for chill beats and ambient vibes.',
     tags: ['kotlin', 'android', 'native'],
     links: [
-      { href: 'https://github.com/unitreign/loomi-android/releases/', icon: 'fa-solid fa-download', title: 'download apk' },
-      { href: 'https://github.com/unitreign/loomi-android', icon: 'fa-brands fa-github', title: 'view on github' }
+      { href: 'https://radio.reign.fyi/', icon: 'fa-solid fa-arrow-up-right-from-square', title: 'listen' }
     ]
   },
   {
-    num: '03',
+    hidden: false,
     title: 'reign tools',
     status: 'live',
     description: 'fast browser tools for text and images. no ai, just math and javascript.',
     tags: ['vanilla js', 'canvas api', 'client-side'],
     links: [
-      { href: 'https://reign-tools.vercel.app/', icon: 'fa-solid fa-arrow-up-right-from-square', title: 'view project' }
+      { href: 'https://tools.reign.fyi/', icon: 'fa-solid fa-arrow-up-right-from-square', title: 'view project' }
     ]
   },
   {
-    num: '04',
+    hidden: true,
     title: 'commit-palette',
     status: 'live',
     description: 'customizable github contribution graph.',
@@ -42,7 +41,7 @@ const PROJECTS = [
     ]
   },
   {
-    num: '05',
+    hidden: true,
     title: 'crosspoint-covergen',
     status: 'oss',
     description: 'simple python script for making cover images for Crosspoint firmware.',
@@ -52,7 +51,7 @@ const PROJECTS = [
     ]
   },
   {
-    num: '06',
+    hidden: true,
     title: 'nimbus',
     status: 'wip',
     description: 'turn browser chaos into a visual workspace. capture, connect, and organize on a zoomable canvas.',
@@ -66,17 +65,18 @@ const PROJECTS = [
   if (!wrap) return;
   wrap.innerHTML = '';
 
-  PROJECTS.forEach(p => {
+  PROJECTS.filter(p => !p.hidden).forEach((p, i) => {
     const div = document.createElement('div');
     div.className = 'project';
 
+    const num = String(i + 1).padStart(2, '0');
     const tagsHtml  = p.tags.map(t => `<span class="tag">${t}</span>`).join('');
     const linksHtml = p.links.map(l =>
       `<a href="${l.href}" class="project-link" target="_blank" title="${l.title}"><i class="${l.icon}"></i></a>`
     ).join('');
 
     div.innerHTML = `
-      <span class="proj-num">${p.num}</span>
+      <span class="proj-num">${num}</span>
       <div class="proj-info">
         <h3>${p.title}<span class="proj-status ${p.status}">${p.status}</span></h3>
         <p>${p.description}</p>
