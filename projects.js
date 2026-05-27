@@ -13,7 +13,7 @@ const PROJECTS = [
   {
     hidden: false,
     title: 'loomi',
-    status: 'oss',
+    status: 'live',
     description: 'native android lofi companion for chill beats and ambient vibes.',
     tags: ['kotlin', 'android', 'native'],
     links: [
