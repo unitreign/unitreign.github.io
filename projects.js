@@ -14,8 +14,8 @@ const PROJECTS = [
     hidden: false,
     title: 'loomi',
     status: 'live',
-    description: 'native android lofi companion for chill beats and ambient vibes.',
-    tags: ['kotlin', 'android', 'native'],
+    description: 'web lofi companion for chill beats and ambient vibes.',
+    tags: ['web', 'radio-api'],
     links: [
       { href: 'https://radio.reign.fyi/', icon: 'fa-solid fa-arrow-up-right-from-square', title: 'listen' }
     ]
