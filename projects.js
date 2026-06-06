@@ -1,5 +1,36 @@
 const PROJECTS = [
   {
+  hidden: false,
+  title: 'oflame',
+  status: 'live',
+  description: 'firmware image editor for snowsky echo & echo mini. edit bitmaps, fonts, and colors, then flash back to device.',
+  tags: ['svelte 5', 'sveltekit', 'bun'],
+  links: [
+    { href: 'https://oflame.reign.fyi', icon: 'fa-solid fa-arrow-up-right-from-square', title: 'open app' },
+    { href: 'https://github.com/unitreign/ocean-flame', icon: 'fa-brands fa-github', title: 'view on github' }
+  ]
+},
+{
+  hidden: false,
+  title: 'spark',
+  status: 'live',
+  description: 'browser-based theme builder for snowsky echo and echo mini. design button layouts, tune press styles, and export ready-to-use pngs.',
+  tags: ['vanilla js', 'canvas api', 'web'],
+  links: [
+    { href: 'https://spark.reign.fyi/', icon: 'fa-solid fa-arrow-up-right-from-square', title: 'view project' }
+  ]
+},
+  {
+  hidden: false,
+  title: 'noir player',
+  status: 'oss',
+  description: 'dual-video player for switching between two versions of the same film in real time. built on mpv.',
+  tags: ['python', 'pyqt6', 'desktop'],
+  links: [
+    { href: 'https://github.com/unitreign/NoirPlayer', icon: 'fa-brands fa-github', title: 'view on github' }
+  ]
+  },
+  {
     hidden: false,
     title: 'calliope',
     status: 'oss',
@@ -30,6 +61,9 @@ const PROJECTS = [
       { href: 'https://tools.reign.fyi/', icon: 'fa-solid fa-arrow-up-right-from-square', title: 'view project' }
     ]
   },
+
+
+
   {
     hidden: true,
     title: 'commit-palette',
