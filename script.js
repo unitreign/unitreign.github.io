@@ -1,3 +1,24 @@
+// ── Config toggles ─────────────────────────────────────────────────────────
+const SHOW_BLOG = 0; // 1 = show projects/blog tabs + blog tab, 0 = projects only
+
+(function applyBlogToggle() {
+  if (SHOW_BLOG) return;
+
+  // Remove blog tab buttons (desktop + mobile) and blog panel
+  document.querySelectorAll('[data-tab="blog"], [data-mtab="blog"], #tab-blog')
+    .forEach(el => el.remove());
+
+  // Hide the tabs bar entirely (only "projects" remains, no need to switch)
+  const tabsBar = document.querySelector('.tabs-bar');
+  if (tabsBar) tabsBar.style.display = 'none';
+
+  // Make sure the projects panel is active/visible
+  const projTab   = document.querySelector('.tab[data-tab="projects"]');
+  const projPanel = document.getElementById('tab-projects');
+  if (projTab)   projTab.classList.add('active');
+  if (projPanel) projPanel.classList.add('active');
+})();
+
 // Theme
 function toggleTheme() {
   const html = document.documentElement;
@@ -187,4 +208,4 @@ async function loadBlogPosts() {
   }
 }
 
-loadBlogPosts();
+if (SHOW_BLOG) loadBlogPosts();
